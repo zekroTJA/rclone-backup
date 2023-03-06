@@ -1,0 +1,4 @@
+/home/user/importantdata,**/exclude1/**
+
+# Upload photos and exclude raw files
+/mnt/data/photos,{{.*\.ARW.*}}
