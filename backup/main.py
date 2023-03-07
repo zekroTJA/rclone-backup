@@ -39,12 +39,22 @@ def join_target(target, dir):
     return f"{target}:{dir_to_target_path(dir)}"
 
 
+def build_exclude_flags(excludes: list[str]) -> list[str]:
+    flags = []
+    for exclude in excludes:
+        if exclude.startswith('max-size='):
+            flags.append(f"--max-size={exclude[len('max-size='):]}")
+        else:
+            flags.append(f"--exclude={exclude}")
+    return flags
+
+
 def sync(
     mode: str, target: str, dir: str,
     excludes: list[str], dry: bool, limit: str,
 ) -> int:
     cmd = ["rclone", mode, "-v", dir, join_target(target, dir)]
-    cmd.extend([f"--exclude={p}" for p in excludes])
+    cmd.extend(build_exclude_flags(excludes))
     if dry:
         cmd.append('--dry-run')
     if limit:
