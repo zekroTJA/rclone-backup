@@ -52,3 +52,19 @@ options:
   --mode {sync,copy}    The rclone replication mode to use.
   --no-colors           Supress colorful output
 ```
+
+## Docker Image
+
+You can also use the provided Docker image to do automated backups of your servers, for example.
+
+
+Therefore, you need to bind the Rclone config as well as the backup list and the corresponding directories which should be backed up into the container.
+
+```
+docker run \
+  --rm \
+  -v $HOME/rclone.conf:/root/.config/rclone/rclone.conf:ro \
+  -v $HOME/list.csv:/app/list.csv:ro \
+  -v $HOME/myfiles:/backup/myfiles:ro \
+  ghcr.io/zekrotja/rclone-backup -l list.csv -t backups
+```
