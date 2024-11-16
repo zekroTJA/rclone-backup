@@ -1,4 +1,3 @@
-package workflows
 name: Release
 
 on:
