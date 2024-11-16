@@ -1,6 +1,7 @@
 package rclone
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"os"
@@ -80,8 +81,14 @@ func (t *Rclone) Sync(
 
 	cmd.Stdout = os.Stdout
 
+	var stdErr bytes.Buffer
+	cmd.Stderr = &stdErr
+
 	err = cmd.Run()
 	if err != nil {
+		if stdErr.Len() > 0 {
+			return errors.New(stdErr.String())
+		}
 		return err
 	}
 

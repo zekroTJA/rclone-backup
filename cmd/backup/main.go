@@ -51,6 +51,7 @@ func main() {
 	}
 
 	for _, entry := range lst {
+		fmt.Println(au.Cyan(fmt.Sprintf("Backing up %s ...", entry.Path)))
 		err = rc.Sync(args.Mode, entry.Path, args.Target, entry.Args, args.Dry, args.Limit)
 		if err != nil {
 			printErr("failed to sync: %s", err)
