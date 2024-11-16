@@ -26,8 +26,6 @@ jobs:
           go-version: "^1.21"
       - name: Check out code into the Go module directory
         uses: actions/checkout@v3
-      - name: Infuse Version
-        run: bash scripts/version.sh
       - name: Build Client (${{ matrix.goos }}-${{ matrix.goarch }})
         env:
           GOOS: ${{ matrix.goos }}
